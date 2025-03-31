@@ -1,7 +1,7 @@
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { lusitana } from '@/app/ui/fonts';
+import { lusitana } from '@/app/fonts';
 import { LatestInvoice } from '@/app/lib/definitions';
 export default async function LatestInvoices({
   latestInvoices,
@@ -37,7 +37,7 @@ export default async function LatestInvoices({
                     height={32}
                   />
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold md:text-base">
+                    <p className="truncate text-sm fonts-semibold md:text-base">
                       {invoice.name}
                     </p>
                     <p className="hidden text-sm text-gray-500 sm:block">
@@ -46,7 +46,7 @@ export default async function LatestInvoices({
                   </div>
                 </div>
                 <p
-                  className={`${lusitana.className} truncate text-sm font-medium md:text-base`}
+                  className={`${lusitana.className} truncate text-sm fonts-medium md:text-base`}
                 >
                   {invoice.amount}
                 </p>

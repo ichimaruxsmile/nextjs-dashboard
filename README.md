@@ -1,5 +1,20 @@
-## Next.js App Router Course - Starter
+/app
+包含了你的应用程序的所有路由、组件和逻辑，你大部分的工作都将在这里进行。
 
-This is the starter template for the Next.js App Router Course. It contains the starting code for the dashboard application.
+/app/lib
+包含在应用程序中使用的函数，例如可重用的工具函数和数据获取函数。
 
-For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
+/app/ui
+包含应用程序的所有 UI 组件，例如卡片、表格和表单。
+
+/public
+包含应用程序的所有静态资产，例如图片。
+
+
+1. CSS配置，支持使用tailwind、module style、sass、css-in-jss等多种方案
+2. 字体优化, 使用 next/font 模块时，Next.js 会自动在应用程序中优化字体。它在构建时下载字体文件，并将其与其他静态资产一起托管。避免CLS（布局偏移）问题
+3. 图片优化，<Image />
+4. 布局和页面，Next.js 使用文件系统路由，其中文件夹用于创建嵌套路由。每个文件夹代表一个路由段，映射到一个 URL 段。
+   page.tsx 是一个特殊的 Next.js 文件，它导出一个 React 组件，并且对于该路由可以访问是必需的。/app/page.tsx - 这是与路由 / 关联的首页。
+   layout.tsx 是一个共享的UI文件，它可以让当前路由下所有的页面都共享UI
+5. 
