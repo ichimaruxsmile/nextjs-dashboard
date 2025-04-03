@@ -20,3 +20,7 @@ export async function GET() {
     return Response.json({ error }, { status: 500 });
   }
 }
+
+// 添加以下代码以支持cloudflare针对于非pages的部署
+// 由于 Cloudflare Pages 运行在 Cloudflare Workers 平台上，它只支持 Edge Runtime，而不支持 Node.js Runtime。
+export const runtime = 'edge';
