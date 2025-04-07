@@ -4,21 +4,11 @@ import { generateYAxis } from '@/app/lib/utils';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/fonts';
 import { Revenue } from '@/app/lib/types';
-import { use, useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RevenueChartSkeleton } from '@/app/ui/skeletons';
 
-async function fetchData(): Promise<Revenue[]> {
-  const response = await fetch('/api/revenue');
-  const { data } = await response.json();
-
-  return data;
-}
-
 export default function RevenueChart() {
-  // const values = use(fetchData());
-
   const [values, updateValues] = useState<Revenue[] | undefined>(undefined);
-  // console.log('revenue', revenue);
 
   useEffect(() => {
     (async () => {
@@ -31,7 +21,6 @@ export default function RevenueChart() {
   if (values === undefined) return <RevenueChartSkeleton />;
 
   const chartHeight = 350;
-  // NOTE: Uncomment this code in Chapter 7
 
   if (!values || values.length === 0) {
     return <p className="mt-4 text-gray-400">No data available.</p>;
@@ -42,7 +31,6 @@ export default function RevenueChart() {
   return (
     <div className="w-full md:col-span-4">
       <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>Recent Revenue</h2>
-      {/* NOTE: Uncomment this code in Chapter 7 */}
 
       <div className="rounded-xl bg-gray-50 p-4">
         <div className="sm:grid-cols-13 mt-0 grid grid-cols-12 items-end gap-2 rounded-md bg-white p-4 md:gap-4">
@@ -75,3 +63,5 @@ export default function RevenueChart() {
     </div>
   );
 }
+
+export const runtime = 'edge';
