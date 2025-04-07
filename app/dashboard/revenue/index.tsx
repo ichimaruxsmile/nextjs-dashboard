@@ -1,26 +1,34 @@
 'use client';
+
 import { generateYAxis } from '@/app/lib/utils';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/fonts';
 import { Revenue } from '@/app/lib/types';
-import { fetchRevenue } from '@/app/lib/data';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useMemo, useState } from 'react';
+import { RevenueChartSkeleton } from '@/app/ui/skeletons';
 
-// This component is representational only.
-// For data visualization UI, check out:
-// https://www.tremor.so/
-// https://www.chartjs.org/
-// https://airbnb.io/visx/
+async function fetchData(): Promise<Revenue[]> {
+  const response = await fetch('/api/revenue');
+  const { data } = await response.json();
 
-export default async function RevenueChart() {
-  const [values, updateValues] = useState<Revenue[]>([]);
+  return data;
+}
+
+export default function RevenueChart() {
+  // const values = use(fetchData());
+
+  const [values, updateValues] = useState<Revenue[] | undefined>(undefined);
+  // console.log('revenue', revenue);
 
   useEffect(() => {
     (async () => {
-      const revenue = await fetchRevenue();
-      updateValues(revenue);
+      const response = await fetch('/api/revenue');
+      const { data } = await response.json();
+      updateValues(data);
     })();
   }, []);
+
+  if (values === undefined) return <RevenueChartSkeleton />;
 
   const chartHeight = 350;
   // NOTE: Uncomment this code in Chapter 7
