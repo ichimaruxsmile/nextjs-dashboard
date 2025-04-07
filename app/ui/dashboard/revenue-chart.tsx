@@ -1,8 +1,10 @@
+'use client';
 import { generateYAxis } from '@/app/lib/utils';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/fonts';
 import { Revenue } from '@/app/lib/types';
 import { fetchRevenue } from '@/app/lib/data';
+import { useEffect, useState } from 'react';
 
 // This component is representational only.
 // For data visualization UI, check out:
@@ -11,15 +13,23 @@ import { fetchRevenue } from '@/app/lib/data';
 // https://airbnb.io/visx/
 
 export default async function RevenueChart() {
-  const revenue = await fetchRevenue();
+  const [values, updateValues] = useState<Revenue[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const revenue = await fetchRevenue();
+      updateValues(revenue);
+    })();
+  }, []);
+
   const chartHeight = 350;
   // NOTE: Uncomment this code in Chapter 7
 
-  const { yAxisLabels, topLabel } = generateYAxis(revenue);
-
-  if (!revenue || revenue.length === 0) {
+  if (!values || values.length === 0) {
     return <p className="mt-4 text-gray-400">No data available.</p>;
   }
+
+  const { yAxisLabels, topLabel } = generateYAxis(values);
 
   return (
     <div className="w-full md:col-span-4">
@@ -37,7 +47,7 @@ export default async function RevenueChart() {
             ))}
           </div>
 
-          {revenue.map((month) => (
+          {values.map((month) => (
             <div key={month.month} className="flex flex-col items-center gap-2">
               <div
                 className="w-full rounded-md bg-blue-300"
