@@ -10,3 +10,5 @@ export const GET = async () => {
     return Response.json({ error: 'Failed to fetch revenue data.' }, { status: 500 });
   }
 };
+
+export const runtime = 'edge';
